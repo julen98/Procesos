@@ -2,7 +2,6 @@ package me.julen.t3.ej3;
 
 public class Avion {
     int asientos = 5;
-    boolean comprobador;
     
     public int getAsientos() {
         return asientos;
@@ -12,23 +11,35 @@ public class Avion {
         this.asientos = asientos;
     }
 
-    public synchronized void reservarAsientos(int reservar) {
-        if(comprobador = true) {
-            asientos = asientos - reservar;
-            System.out.println("Se han reservado " + reservar + " asientos.");
-            System.out.println("Quedan " + asientos + " asientos libres.");
-        } else {
-            System.out.println("No se ha podido reservar.");
+    public void pagar() {
+        try {
+            System.out.println("Procesando el pago...");
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
-    public synchronized boolean asientosLibres(int reservar) {
-        if (asientos > reservar) {
-            System.out.println("Quedan " + asientos + " asientos libres, puedes reservarlos.");
-            return comprobador = true;
+    public void reservarAsientos(int reservar) {
+        asientos = asientos - reservar;
+    }
+
+    public synchronized void nuevaReserva(int reservar) {
+        if(this.asientosLibres(reservar)) {
+            System.out.println("Se van a reservar " + reservar + " asientos.");
+            this.pagar();
+            this.reservarAsientos(reservar);
+            System.out.println("Quedan " + asientos + " asientos libres.");
         } else {
-            System.out.println("No se pueden reservar el numero de asientos introducidos, solo quedan " + asientos);
-            return comprobador = false;
+            System.out.println("No se ha podido reservar. Quedan " + asientos + " asientos libres.");
+        }
+    }
+
+    public boolean asientosLibres(int reservar) {
+        if (asientos >= reservar) {
+            return true;
+        } else {
+            return false;
         }
     }
     

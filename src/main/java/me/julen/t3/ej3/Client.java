@@ -7,20 +7,9 @@ public class Client extends Thread {
         super(name);
         this.avion = avion;
     }
-
-    public void pagar() {
-        try {
-            System.out.println("Procesando el pago...");
-            sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
     
     @Override
     public synchronized void run() {
-        avion.asientosLibres(1);
-        pagar();
-        avion.reservarAsientos(1);
+        avion.nuevaReserva(1);
     }
 }
