@@ -8,20 +8,20 @@ public class Main {
         String input;
         Scanner teclado = new Scanner(System.in);
         InetAddress ip;
-        byte[] 
-
+        
         // Bucle para pedir por pantalla el input
         try {
             do {
                 System.out.print("nslookup ");
                 input = teclado.nextLine();
                 
-                if(Character.isDigit(input.charAt(0))) {
-                    ip = InetAddress.getByAddress();
-                    System.out.println(ip.getHostName());
-                } else {
+                // Controla que si empieza por un numero muestre el host y si no muestre la ip
+                if(!Character.isDigit(input.charAt(0))) {
                     ip = InetAddress.getByName(input);
                     System.out.println(ip.getHostAddress());
+                } else {
+                    ip = InetAddress.getByName(input);
+                    System.out.println(ip.getHostName());
                 }
             } while (!comprobador(input));
         } catch (Exception e) {
