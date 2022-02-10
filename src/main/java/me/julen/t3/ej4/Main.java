@@ -7,5 +7,4 @@ public class Main {
         new Thread(new Adeu("Adeu", m)).start();
         new Thread(new Hola("Hola", m)).start();
     }
-
 }
