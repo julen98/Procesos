@@ -19,12 +19,13 @@ public class MainRuleta {
 		Client cAD = new Client ("Client AD", r, bancoInicial, apuestaInicial, "A", "D");
 		
 		//Llancem els fils i esperem fins que la partida acabe
+		r.start();
+		
 		cFC.start();
 		cFM.start();
 		cFD.start();
 		cAC.start();
 		cAM.start();
 		cAD.start();
-		r.start();
 	}
 }

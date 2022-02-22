@@ -45,29 +45,37 @@ public class Client extends Thread {
 	
 	//Resta de metodes que pugues necessitar tant per a gestionar el client com per a la comunicacio amb la Ruleta
 	Random r = new Random();
-	int randomFijo = r.nextInt(36) + 0;
+	int randomFijo = r.nextInt(36);
 
-	public void numeroApuesta () {
+	public int numeroApuesta () {
 		if (metodo == "F") {
-			numero = randomFijo;
+			return randomFijo;
 		} else {
-			numero = r.nextInt(36) + 0;
+			return (r.nextInt(36) + 0);
 		}
 	}
 
 	public void apuesta() {
 		if (estrategia.equals("D")){
-			apuesta = apuesta + dalembert;
+			apuesta = dalembert;
 			totalApostado = totalApostado + apuesta;
+			
+			if(numeroApuesta() == ruleta.generarNumero())
+				dalembert = 1;
+			else
+				dalembert++;
 		} else if (estrategia.equals("M")) {
-			apuesta = apuesta + martingala;
+			apuesta = martingala;
 			totalApostado = totalApostado + apuesta;
+			
+			if(numeroApuesta() == ruleta.generarNumero())
+				martingala = 1;
+			else
+				martingala = martingala * 2;
 		} else {
 			apuesta = 1;
 			totalApostado = totalApostado + apuesta;
 		}
-		martingala = martingala * 2;
-		dalembert++;
 	}
 
 	public void actualizarBanco() {
@@ -81,14 +89,13 @@ public class Client extends Thread {
 			banco = bancoInicial;
 			while (ruleta.isAlive()) {
 				ruleta.pararClientes();
-				numeroApuesta();
 				apuesta();
-				banco = banco + ruleta.apostar(nombre, numero, apuesta);
+				banco = banco + ruleta.apostar(nombre, numeroApuesta(), apuesta);
 				tiradas++;
 				actualizarBanco();
 				if (apuesta > banco) {
-					join();
 					finalitzar();
+					join();
 				}
 			}
 		} catch (InterruptedException e) {

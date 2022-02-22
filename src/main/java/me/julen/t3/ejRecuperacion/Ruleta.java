@@ -28,13 +28,13 @@ public class Ruleta extends Thread {
 	//Resta de metodes que pugues necessitar per gestionar la Ruleta
 	public int generarNumero() {
 		Random r = new Random();
-		return r.nextInt(36) + 1;
+		return r.nextInt(36) + 0;
 	}
 	
 	//Metode que executaran els clients per fer una aposta. La ruleta tornara el benefici obtingut en l'aposta
 	public synchronized int apostar (String cliente, int numApuesta, int apuesta) {
 		System.out.println(cliente + " aposta " + apuesta + " euro al numero " + numApuesta);
-		if(numApuesta != 0) {
+		if(numApuesta == generarNumero()) {
 			return apuesta * 36;
 		} else {
 			return apuesta * 0;
@@ -62,11 +62,13 @@ public class Ruleta extends Thread {
 			iniciar();
 			while (tiradas < maxTiradas) {
 				generarNumero();
-				sleep(2000);
-				tiradas++;
 				avisarClientes();
+				sleep(2000);
+				System.out.println("Tirada " + tiradas + " - Numero: " + generarNumero());
+				tiradas++;
 			}
 			finalitzar();
+			yield();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
