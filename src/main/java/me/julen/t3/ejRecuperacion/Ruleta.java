@@ -45,6 +45,15 @@ public class Ruleta extends Thread {
 	
 	public synchronized void avisarClientes() {
 		System.out.println("Apuestas abiertas para la tirada " + tiradas);
+		notifyAll();
+	}
+
+	public synchronized void pararClientes() {
+		try {
+			wait();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
@@ -52,19 +61,14 @@ public class Ruleta extends Thread {
 		try {
 			iniciar();
 			while (tiradas < maxTiradas) {
-				avisarClientes();
-				permitir = true;
-				sleep(2000);
 				generarNumero();
+				sleep(2000);
 				tiradas++;
+				avisarClientes();
 			}
 			finalitzar();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public boolean permitirClientes() {
-		return permitir;
 	}
 }

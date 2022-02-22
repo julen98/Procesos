@@ -1,0 +1,98 @@
+{
+    // Use IntelliSense para saber los atributos posibles.
+    // Mantenga el puntero para ver las descripciones de los existentes atributos.
+    // Para más información, visite: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch Main",
+            "request": "launch",
+            "mainClass": "me.julen.t3.ej1.Main",
+            "projectName": "psp"
+        },
+        {
+            "type": "java",
+            "name": "Launch Main(1)",
+            "request": "launch",
+            "mainClass": "me.julen.t3.ej1_v2.Main",
+            "projectName": "psp"
+        },
+        {
+            "type": "java",
+            "name": "Launch Main(2)",
+            "request": "launch",
+            "mainClass": "me.julen.t3.ej2.Main",
+            "projectName": "psp"
+        },
+        {
+            "type": "java",
+            "name": "Launch Main(3)",
+            "request": "launch",
+            "mainClass": "me.julen.t3.ej3.Main",
+            "projectName": "psp"
+        },
+        {
+            "type": "java",
+            "name": "Launch Main(4)",
+            "request": "launch",
+            "mainClass": "me.julen.t3.ej4.Main",
+            "projectName": "psp"
+        },
+        {
+            "type": "java",
+            "name": "Launch Main(5)",
+            "request": "launch",
+            "mainClass": "me.julen.t3.ej5.Main",
+            "projectName": "psp"
+        },
+        {
+            "type": "java",
+            "name": "Launch Main(6)",
+            "request": "launch",
+            "mainClass": "me.julen.t3.ej6.Main",
+            "projectName": "psp"
+        },
+        {
+            "type": "java",
+            "name": "Launch Main(7)",
+            "request": "launch",
+            "mainClass": "me.julen.t3.ejExamen.Main",
+            "projectName": "psp"
+        },
+        {
+            "type": "java",
+            "name": "Launch MainRuleta",
+            "request": "launch",
+            "mainClass": "me.julen.t3.ejRecuperacion.MainRuleta",
+            "projectName": "psp"
+        },
+        {
+            "type": "java",
+            "name": "Launch Main(8)",
+            "request": "launch",
+            "mainClass": "me.julen.t4.ej1.Main",
+            "projectName": "psp"
+        },
+        {
+            "type": "java",
+            "name": "Launch Main(9)",
+            "request": "launch",
+            "mainClass": "me.julen.t4.ej2.Main",
+            "projectName": "psp"
+        },
+        {
+            "type": "java",
+            "name": "Servidor",
+            "request": "launch",
+            "mainClass": "me.julen.t4.ej3.Main",
+            "projectName": "psp"
+        }
+    ]
+}

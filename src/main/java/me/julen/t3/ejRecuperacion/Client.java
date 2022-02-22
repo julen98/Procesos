@@ -56,12 +56,15 @@ public class Client extends Thread {
 	}
 
 	public void apuesta() {
-		if (estrategia == "D"){
-			apuesta = dalembert;
-		} else if (estrategia == "M") {
-			apuesta = martingala;
+		if (estrategia.equals("D")){
+			apuesta = apuesta + dalembert;
+			totalApostado = totalApostado + apuesta;
+		} else if (estrategia.equals("M")) {
+			apuesta = apuesta + martingala;
+			totalApostado = totalApostado + apuesta;
 		} else {
 			apuesta = 1;
+			totalApostado = totalApostado + apuesta;
 		}
 		martingala = martingala * 2;
 		dalembert++;
@@ -71,32 +74,25 @@ public class Client extends Thread {
 		banco = banco - apuesta;
 	}
 
-	public synchronized void pararClientes() {
-		while (!ruleta.permitirClientes()) {
-			try {
-				wait();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-		notify();
-	}
-
 	@Override
 	public void run() {
-		pararClientes();
-		numeroApuesta();
-		apuesta();
-		banco = bancoInicial;
-		iniciar();
-		if (apuesta < banco && tiradas < 50) {
-			ruleta.apostar(this.getName(), numero, apuesta);
-			tiradas++;
-			actualizarBanco();
-		} else {
-			finalitzar();
+		try {
+			iniciar();
+			banco = bancoInicial;
+			while (ruleta.isAlive()) {
+				ruleta.pararClientes();
+				numeroApuesta();
+				apuesta();
+				banco = banco + ruleta.apostar(nombre, numero, apuesta);
+				tiradas++;
+				actualizarBanco();
+				if (apuesta > banco) {
+					join();
+					finalitzar();
+				}
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
-		
-		
 	}
 }
